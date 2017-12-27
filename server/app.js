@@ -13,6 +13,7 @@ mongoose.connection.openUri(db, (err) => {
 })
 
 const users = require('./routes/users')
+const memes = require('./routes/memes')
 
 const app = express()
 
@@ -22,6 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors())
 
 app.use('/users', users)
+app.use('/memes', memes)
 
 app.get('/', (req, res) => res.send('Hello You Have Success Access'))
 
