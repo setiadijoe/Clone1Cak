@@ -3,7 +3,7 @@ const router = require('express').Router();
 
 router.get('/', Komen.getAllComments)
 router.get('/:memeId', Komen.getCommentsByMeme)
-router.post('/', Komen.createComment)
+router.post('/:memeId', Komen.createComment)
 router.put('/:id', Komen.updateComment)
 router.delete('/:id', Komen.removeComment)
 
