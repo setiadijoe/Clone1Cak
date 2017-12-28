@@ -1,4 +1,4 @@
-CloneWancak
+Clone1Cak
 ===========
 
 Pair project create cloning of 1CAK mobile apps for educational purpose
@@ -70,4 +70,4 @@ For API of comments
 
 For using this api you must install npm or yarn
 
-then use yarn install or npm install, and then create your .env file and run using yarn run dev or npm run dev It will run in port 3001
+then use `yarn install` or `npm install`, and then create your `.env` file and run using `yarn run dev` or `npm run dev` It will run in port `3001`
