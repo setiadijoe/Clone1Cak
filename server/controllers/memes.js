@@ -20,7 +20,7 @@ const createMeme = (req, res) => {
   let meme = new Meme({
     title: req.body.title,
     imageUrl: req.body.imageUrl,
-    author: req.headers.id
+    author: req.headers.userid
   })
   meme.save()
     .then(newMeme => {
