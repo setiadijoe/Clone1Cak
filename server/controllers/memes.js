@@ -17,7 +17,6 @@ const getByUser = (req, res) => {
 }
 
 const createMeme = (req, res) => {
-  console.log(req.headers);
   let meme = new Meme({
     title: req.body.title,
     imageUrl: req.body.imageUrl,
