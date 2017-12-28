@@ -20,7 +20,7 @@ const createComment = (req, res) => {
   let comment = new Komen({
     content: req.body.content,
     memeId: req.params.memeId,
-    author: req.headers.id
+    author: req.headers.userid
   })
   comment.save()
     .then(newComment => {
