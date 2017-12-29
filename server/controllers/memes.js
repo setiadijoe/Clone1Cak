@@ -19,7 +19,7 @@ const getByUser = (req, res) => {
 const createMeme = (req, res) => {
   let meme = new Meme({
     title: req.body.title,
-    imageUrl: req.body.imageUrl,
+    imageUrl: req.file.cloudStoragePublicUrl,
     author: req.headers.userid
   })
   meme.save()
