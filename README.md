@@ -58,6 +58,8 @@ For API of memes
 | `/api/memes` | POST | Create a meme | 
 | `/api/memes/:id` | DELETE | Delete a meme | 
 | `/api/memes/:id` | PUT | Update a meme with new info |
+| `/api/memes/fun/:id` | PUT | Vote for funny meme |
+| `/api/memes/unfun/:id` | PUT | Unvote meme |
 
 For API of comments
 

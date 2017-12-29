@@ -19,7 +19,7 @@ const getByUser = (req, res) => {
 const createMeme = (req, res) => {
   let meme = new Meme({
     title: req.body.title,
-    imageUrl: req.body.imageUrl,
+    imageUrl: req.file.cloudStoragePublicUrl,
     author: req.headers.userid
   })
   meme.save()
@@ -59,10 +59,42 @@ const removeMeme = (req, res) => {
     .catch(err => res.status(500).send(err))
 }
 
+const funnyMeme = (req, res) => {
+  Meme.findByIdAndUpdate(req.params.id, {
+    $addToSet: {
+      funny: req.headers.id
+    }
+  }, {new: true})
+    .then(voted => {
+      res.status(200).send({
+        message: 'This has been voted',
+        voted
+      })
+    })
+    .catch(err => res.status(500).send(err))
+}
+
+const unfunnyMeme = (req, res) => {
+  Meme.findByIdAndUpdate(req.params.id, {
+    $pull: {
+      funny: req.headers.id
+    }
+  }, {new: true})
+    .then(unvoted => {
+      res.status(200).send({
+        message: 'unvoted meme',
+        unvoted
+      })
+    })
+    .catch(err => res.status(500).send(err))
+}
+
 module.exports = {
   getAllMemes,
   getByUser,
   createMeme,
   updateMeme,
-  removeMeme
+  removeMeme,
+  funnyMeme,
+  unfunnyMeme
 };

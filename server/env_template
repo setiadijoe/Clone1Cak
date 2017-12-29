@@ -1,2 +1,5 @@
 MONGO_URL=<Your Database URL>
 JWT_SECRET=<Your Secret Key>
+CLOUD_BUCKET=<Name of Your Bucket>
+PROJECT_ID=<Id of your Bucket>
+KEYFILE_PATH=<Your KeyFile Path>
