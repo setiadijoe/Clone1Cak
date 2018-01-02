@@ -12,11 +12,15 @@ import {
   View
 } from 'react-native';
 import { StackNavigator } from 'react-navigation'
+import LoginScreen from './src/screen/LoginScreen'
 import HomeScreen from './src/screen/HomeScreen'
+import UploadScreen from './src/screen/UploadScreen'
+import { Provider } from 'react-redux'
+import store from './store'
 
 const Navigator = StackNavigator({
-  Home: {
-    screen: HomeScreen,
+  login: {
+    screen: LoginScreen,
     navigationOptions: {
       headerTitle: 'LOGIN',
       headerStyle: {
@@ -27,13 +31,33 @@ const Navigator = StackNavigator({
         right: 0      
       }
     }  
-  }
+  },
+  Home: {
+    screen: HomeScreen,
+  },
+  Upload: {
+    screen: UploadScreen,
+    navigationOptions: {
+      headerTitle: 'ADD MEME',
+      headerStyle: {
+        backgroundColor: 'transparent',
+        zIndex: 100,
+        top: 0,
+        left: 0,
+        right: 0      
+      }
+    }  
+  },    
+},{
+  initialRouteName : 'login'
 })
 
 export default class App extends Component<{}> {
   render() {
     return (
-      <Navigator />
+      <Provider store={store}>
+        <Navigator />
+      </Provider>
     );
   }
 }

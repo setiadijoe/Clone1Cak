@@ -1,77 +1,61 @@
-import React from 'react';
-import { StyleSheet,
-		View, 
-		Text, 
-		Button,
-		TouchableOpacity,
-		TextInput,
-		Image } from 'react-native';
+import React, { Component } from 'react';
+import { View,FlatList,ActivityIndicator } from 'react-native';
+import { Container, Header, Content, Thumbnail, Text, Icon} from 'native-base';
+import MemesComponent from '../component/MemesComponent'
+import { connect } from 'react-redux'
+import { fetchApiMemes } from '../actions/memeAction'
 
-export default class HomeScreen extends  React.Component {
-	constructor(props){
-		super()
-		this.state = {
-			username: '',
-			password: '',
-		}
-	}
 
-	checkLogin() {
-		alert(this.state.username)
-	}
+class HomeScreen extends Component {
+  static navigationOptions= (({navigation}) => ({
+    title: 'Home',
+    headerRight: <Icon name="add" size={35} style={{marginRight: 20}}
+    onPress={ () => navigation.navigate('Upload')}
+    />,
+    headerStyle: {
+      backgroundColor: 'transparent',
+      zIndex: 100,
+      top: 0,
+      left: 0,
+      right: 0
+    }     
+  }))  
 
-	render() {
-		return (
-	       <View style={styles.container}>
-	       	<TextInput
-	       		style={
-	       			{
-	       				height: 40,
-	       				width: 150,
-	       				borderColor: 'black',
-	       				borderWidth: 1
-	       			}
-	       		}
-	       		onChangeText={(user) => this.setState({username : user})}
-	       		placeholder='username'
-	       	/>
-	       	<TextInput
-	       		secureTextEntry={true}
-	       		style={
-	       			{
-	       				height: 40,
-	       				width: 150,
-	       				borderColor: 'black',
-	       				borderWidth: 1,
-	       				marginTop: 20,
-	       			}
-	       		}
-	       		onChangeText={(pass) => this.setState({password : pass})}
-	       		placeholder='password'
-	       	/>	       
-     		<TouchableOpacity onPress={() => this.checkLogin()}> 
-       		 <Text style={styles.loginButton}> Login </Text>
-         	</TouchableOpacity>		       		
-	      </View>			
-		)
-	}
-}
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  h1: {
-  	fontSize: 40,
-  	marginBottom: 100,
-  	color: 'green',
-  },
-  loginButton: {
-  	fontSize: 20,
-  	marginTop: 10,
-  	borderWidth: 1,
-
+  componentDidMount() {
+    this.props.fetchApiMemes() 
+  }     
+  render() {
+    const { navigate, state } = this.props.navigation
+    return (
+      <View>
+      {this.props.memes.length === 0 && <ActivityIndicator
+       color = '#bc2b78'
+       size = "large"
+       /> }
+       <FlatList
+       data={this.props.memes}
+       keyExtractor= {(item,index) => item.title}
+       renderItem= {({item}) => {
+        return(
+          <MemesComponent meme={item} key={item.title} navigate={navigate}/>
+          )           
+      }}
+      />
+      </View>    
+      )
   }
-});
+}
+
+function mapStateToProps(state) {
+  return {
+    memes: state.memeReducer.memes
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    fetchApiMemes: () => dispatch(fetchApiMemes())
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(HomeScreen)
