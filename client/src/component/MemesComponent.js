@@ -30,14 +30,15 @@ class MemesComponent extends Component {
                 </Button>
               </Left>
               <Body>
-                <Button transparent>
+                <Button transparent 
+                  onPress={() => this.props.navigate('Meme', {
+                  meme: this.props.meme
+                  })
+                }>
                   <Icon active name="chatbubbles" />
-                  <Text>Comments</Text>
+                  <Text>{this.props.meme.comment.length} Comments</Text>
                 </Button>
               </Body>
-              <Right>
-                <Text>11h ago</Text>
-              </Right>
             </CardItem>
           </Card>
         </Content>

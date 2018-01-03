@@ -5,7 +5,8 @@ const initialState = {
 		avatarUrl: 'https://cdn3.iconfinder.com/data/icons/internet-and-web-4/78/internt_web_technology-13-512.png',
 		imageUrl: 'https://scontent-sea1-1.cdninstagram.com/t51.2885-15/e35/11930880_1651949391752070_47243331_n.jpg?ig_cache_key=MTA3NTAwNzc2NTUxODg2NTA4MQ%3D%3D.2',
 		author: 'Ahmad',
-		funny: []
+		funny: [],
+		comment: []
 	},
 	{
 		_id: '1234',
@@ -13,7 +14,8 @@ const initialState = {
 		avatarUrl: 'https://cdn3.iconfinder.com/data/icons/internet-and-web-4/78/internt_web_technology-13-512.png',
 		imageUrl: 'https://scontent-sea1-1.cdninstagram.com/t51.2885-15/e35/11930880_1651949391752070_47243331_n.jpg?ig_cache_key=MTA3NTAwNzc2NTUxODg2NTA4MQ%3D%3D.2',
 		author: 'Shahab',
-		funny: []		
+		funny: [],
+		comment: []		
 	}
 	]
 }
@@ -35,7 +37,17 @@ function memeReducer(state=initialState, action){
 					}
 				}
 			})
-			return state			
+			return state	
+		case 'ADD_COMMENT':
+			state.memes.forEach(meme => {
+				if(meme._id === action.payload.memeId){
+					meme.comment.push({
+						msg: action.payload.comment,
+						name: action.payload.userName
+					})
+				}
+			})
+			return state	
 		case 'UPLOAD_MEME':
 			state.memes.push(action.payload)
 			return state 		

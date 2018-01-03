@@ -22,22 +22,18 @@ import { StyleSheet,
 		}
 
 		checkLogin() {
-			alert(this.state.username)
-			this.props.fetchApiUsers(this.state.username,this.state.password)
-			this.setState({
-				isLogin: true
-			})			
+			this.props.fetchApiUsers(this.state.username,this.state.password)					
 		}
 
 		componentDidMount() {
-			if(this.state.isLogin){
+			if(this.props.isLogin){
 				navigate('Home')
 			} 
 		}
 
 		render() {
 			const { navigate,state } = this.props.navigation
-			if(this.state.isLogin){
+			if(this.props.isLogin){
 				navigate('Home')
 			}
 				return (
@@ -82,6 +78,11 @@ import { StyleSheet,
 		}
 	});
 
+	function mapStateToProps (state) {
+		return {
+			isLogin: state.userReducer.isLogin
+		}
+	}
 
 	function mapDispatchToProps (dispatch) {
 		return {
@@ -89,4 +90,4 @@ import { StyleSheet,
 		}
 	}
 
-	export default connect(null, mapDispatchToProps)(LoginScreen)
+	export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen)

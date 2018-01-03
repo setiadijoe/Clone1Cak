@@ -16,6 +16,7 @@ import LoginScreen from './src/screen/LoginScreen'
 import HomeScreen from './src/screen/HomeScreen'
 import UploadScreen from './src/screen/UploadScreen'
 import SignUpScreen from './src/screen/SignUpScreen'
+import MemeScreen from './src/screen/MemeScreen'
 import { Provider } from 'react-redux'
 import store from './store'
 
@@ -45,7 +46,20 @@ const Navigator = StackNavigator({
         right: 0      
       }
     }  
-  },  
+  },
+  Meme: {
+    screen: MemeScreen,
+    navigationOptions: {
+      headerTitle: 'MEME',
+      headerStyle: {
+        backgroundColor: 'transparent',
+        zIndex: 100,
+        top: 0,
+        left: 0,
+        right: 0      
+      }
+    }  
+  },    
   Home: {
     screen: HomeScreen,
   },

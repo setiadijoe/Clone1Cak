@@ -34,6 +34,18 @@ export const likeMeme= (memeId,userId) => {
 	}
 }
 
+export const addComment= (memeId,userName,comment) => {
+	alert(comment)
+	return {
+		type: "ADD_COMMENT",
+		payload: {
+			memeId: memeId,
+			userName: userName,
+			comment: comment
+		}
+	}
+}
+
 export const fetchApiMemes= () => {
 	return (dispatch,getState) => {
 		dispatch(getMemes())

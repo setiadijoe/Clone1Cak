@@ -3,6 +3,9 @@ import axios from 'axios'
 export const getUser= () => {
 	return {
 		type: "GET_USER",
+		payload: {
+			isLogin: true
+		}
 	}
 }
 
