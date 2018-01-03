@@ -15,6 +15,7 @@ import { StackNavigator } from 'react-navigation'
 import LoginScreen from './src/screen/LoginScreen'
 import HomeScreen from './src/screen/HomeScreen'
 import UploadScreen from './src/screen/UploadScreen'
+import SignUpScreen from './src/screen/SignUpScreen'
 import { Provider } from 'react-redux'
 import store from './store'
 
@@ -32,6 +33,19 @@ const Navigator = StackNavigator({
       }
     }  
   },
+  SignUp: {
+    screen: SignUpScreen,
+    navigationOptions: {
+      headerTitle: 'SIGN UP',
+      headerStyle: {
+        backgroundColor: 'transparent',
+        zIndex: 100,
+        top: 0,
+        left: 0,
+        right: 0      
+      }
+    }  
+  },  
   Home: {
     screen: HomeScreen,
   },

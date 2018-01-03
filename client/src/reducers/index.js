@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
 import memeReducer from './memeReducer'
+import userReducer from './userReducer'
 
 const rootReducers = combineReducers({
-	memeReducer
+	memeReducer,
+	userReducer
 })
 
 export default rootReducers

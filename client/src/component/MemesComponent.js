@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { Image } from 'react-native';
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
-export default class MemesComponent extends Component {
+import { connect } from 'react-redux'
+import { likeMeme } from '../actions/memeAction'
+
+class MemesComponent extends Component {
   render() {
     return (
       <Container>
@@ -12,7 +15,7 @@ export default class MemesComponent extends Component {
                 <Thumbnail source={{uri: this.props.meme.avatarUrl}} />
                 <Body>
                   <Text>{this.props.meme.title}</Text>
-                  <Text note>Ahmad</Text>
+                  <Text note>{this.props.meme.author}</Text>
                 </Body>
               </Left>
             </CardItem>
@@ -21,9 +24,9 @@ export default class MemesComponent extends Component {
             </CardItem>
             <CardItem>
               <Left>
-                <Button transparent>
+                <Button transparent onPress={() => this.props.likeMeme(this.props.meme._id, this.props.user._id)}>
                   <Icon active name="thumbs-up" />
-                  <Text>12 Likes</Text>
+                  <Text>{this.props.meme.funny.length} Likes</Text>
                 </Button>
               </Left>
               <Body>
@@ -42,3 +45,17 @@ export default class MemesComponent extends Component {
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    user: state.userReducer.user
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    likeMeme: (memeId,userId) => dispatch(likeMeme(memeId,userId))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MemesComponent)

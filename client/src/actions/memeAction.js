@@ -1,8 +1,15 @@
 import axios from 'axios'
 
-export const getHeroes= () => {
+export const getMemes= () => {
 	return {
 		type: "GET_MEMES",
+	}
+}
+
+export const getMeme= (memeId) => {
+	return {
+		type: "GET_MEME",
+		payload: memeId
 	}
 }
 
@@ -17,8 +24,18 @@ export const uploadMeme= (titleMeme,imageUrlMeme) => {
 	}
 }
 
+export const likeMeme= (memeId,userId) => {
+	return {
+		type: "LIKE_MEME",
+		payload: {
+			memeId: memeId,
+			userId: userId
+		}
+	}
+}
+
 export const fetchApiMemes= () => {
 	return (dispatch,getState) => {
-		dispatch(getHeroes())
+		dispatch(getMemes())
 	}
 }

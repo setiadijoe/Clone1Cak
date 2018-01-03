@@ -48,7 +48,8 @@ class HomeScreen extends Component {
 
 function mapStateToProps(state) {
   return {
-    memes: state.memeReducer.memes
+    memes: state.memeReducer.memes,
+    user: state.userReducer.user
   }
 }
 
