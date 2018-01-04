@@ -22,7 +22,10 @@ import { StyleSheet,
 		}
 
 		checkLogin() {
-			this.props.fetchApiUsers(this.state.username,this.state.password)					
+			this.props.fetchApiUsers(this.state.username,this.state.password)	
+			this.setState({
+				isLogin: this.props.isLogin
+			})				
 		}
 
 		componentDidMount() {

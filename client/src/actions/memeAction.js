@@ -13,13 +13,17 @@ export const getMeme= (memeId) => {
 	}
 }
 
-export const uploadMeme= (titleMeme,imageUrlMeme) => {
+export const uploadMeme= (titleMeme,imageUrlMeme,nameUser) => {
+	alert(JSON.stringify(imageUrlMeme))
 	return {
 		type: "UPLOAD_MEME",
 		payload: {
 			title: titleMeme,
 			avatarUrl: 'https://cdn3.iconfinder.com/data/icons/internet-and-web-4/78/internt_web_technology-13-512.png',
-			imageUrl: imageUrlMeme
+			imageUrl: imageUrlMeme,
+			author: nameUser,
+			funny: [],
+			comment: []			
 		}
 	}
 }
@@ -41,7 +45,7 @@ export const addComment= (memeId,userName,comment) => {
 		payload: {
 			memeId: memeId,
 			userName: userName,
-			comment: comment
+			comment: comment,			
 		}
 	}
 }

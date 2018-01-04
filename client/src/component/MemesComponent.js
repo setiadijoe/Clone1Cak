@@ -5,6 +5,9 @@ import { connect } from 'react-redux'
 import { likeMeme } from '../actions/memeAction'
 
 class MemesComponent extends Component {
+  componentDidMount() {
+    
+  }
   render() {
     return (
       <Container>
