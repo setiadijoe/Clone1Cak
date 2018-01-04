@@ -2,11 +2,20 @@ import React, { Component } from 'react';
 import { Image } from 'react-native';
 import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body, Right } from 'native-base';
 import { connect } from 'react-redux'
-import { likeMeme } from '../actions/memeAction'
+
 
 class MemesComponent extends Component {
-  componentDidMount() {
-    
+  constructor(props) {
+    super()
+    this.state = {
+      update: true
+    }
+  }
+  likeMemeComponent(memeId,userId) {
+    this.props.like(memeId,userId)
+    this.setState({
+      update: true
+    })
   }
   render() {
     return (
@@ -27,7 +36,7 @@ class MemesComponent extends Component {
             </CardItem>
             <CardItem>
               <Left>
-                <Button transparent onPress={() => this.props.likeMeme(this.props.meme._id, this.props.user._id)}>
+                <Button transparent onPress={() => this.likeMemeComponent(this.props.meme._id, this.props.user._id)}>
                   <Icon active name="thumbs-up" />
                   <Text>{this.props.meme.funny.length} Likes</Text>
                 </Button>
@@ -56,10 +65,5 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    likeMeme: (memeId,userId) => dispatch(likeMeme(memeId,userId))
-  }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(MemesComponent)
+export default connect(mapStateToProps)(MemesComponent)

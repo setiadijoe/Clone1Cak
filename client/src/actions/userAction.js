@@ -9,6 +9,15 @@ export const getUser= () => {
 	}
 }
 
+export const failedLogin= () => {
+	return {
+		type: "GET_USER",
+		payload: {
+			isLogin: false
+		}
+	}
+}
+
 export const fetchApiUsers= (name,pass) => {
 	return (dispatch,getState) => {
 		if(name === 'a' && pass === 'a'){
@@ -16,6 +25,7 @@ export const fetchApiUsers= (name,pass) => {
 			dispatch(getUser())
 		}else{
 			alert('login false')
+			dispatch(failedLogin())
 		}
 	}
 }

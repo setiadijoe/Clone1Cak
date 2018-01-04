@@ -4,9 +4,16 @@ import { Container, Header, Content, Thumbnail, Text, Icon} from 'native-base';
 import MemesComponent from '../component/MemesComponent'
 import { connect } from 'react-redux'
 import { fetchApiMemes } from '../actions/memeAction'
+import { likeMeme } from '../actions/memeAction'
 
 
 class HomeScreen extends Component {
+    constructor(props){
+      super()
+      this.state = {
+        memes: []
+      }
+    }  
   static navigationOptions= (({navigation}) => ({
     title: 'Home',
     headerRight: <Icon name="add" size={35} style={{marginRight: 20}}
@@ -19,25 +26,28 @@ class HomeScreen extends Component {
       left: 0,
       right: 0
     }     
-  }))  
+  }))   
 
   componentDidMount() {
-    this.props.fetchApiMemes() 
+    this.props.fetchApiMemes()
+    this.setState({
+      memes: this.props.memes
+    }) 
   }     
   render() {
     const { navigate, state } = this.props.navigation
     return (
       <View>
-      {this.props.memes.length === 0 && <ActivityIndicator
+      {this.state.memes.length === 0 && <ActivityIndicator
        color = '#bc2b78'
        size = "large"
        /> }
        <FlatList
-       data={this.props.memes}
-       keyExtractor= {(item,index) => item.title}
+       data={this.state.memes}
+       keyExtractor= {(item,index) => index}
        renderItem= {({item}) => {
         return(
-          <MemesComponent meme={item} key={item.title} navigate={navigate}/>
+          <MemesComponent meme={item} navigate={navigate} like={this.props.likeMeme}/>
           )           
       }}
       />
@@ -55,7 +65,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    fetchApiMemes: () => dispatch(fetchApiMemes())
+    fetchApiMemes: () => dispatch(fetchApiMemes()),
+    likeMeme: (memeId,userId) => dispatch(likeMeme(memeId,userId))
   }
 }
 

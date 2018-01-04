@@ -16,12 +16,40 @@ class MemeScreen extends Component {
     super()
     this.state= {
       comment: '',
+      updated: false,
+      memeComment: ''
     }
   }
 
   componentDidMount() {
+    const { navigate,state } = this.props.navigation
     this.props.fetchApiMemes() 
+    this.setState({
+      memeComment: state.params.meme.comment
+    })
   }
+
+  componentDidUpdate(prevProps) {
+    // alert(JSON.stringify(prevProps.navigation.state.params.meme.comment))
+    // alert(JSON.stringify(this.state.memeComment))
+    // this.setState({
+    //   update: true,
+    // })
+  }
+
+  likeMemeScreen(memeId,userId) {
+    this.props.likeMeme(memeId,userId)
+    this.setState({
+      updated: true
+    })
+  }
+
+  addCommentMeme(memeId,nameUser,commentUser) {
+    this.props.addComment(memeId,nameUser,commentUser)
+    this.setState({
+      updated: true
+    })
+  }  
 
   render() {
     const { navigate,state } = this.props.navigation
@@ -43,14 +71,14 @@ class MemeScreen extends Component {
               </CardItem>
               <CardItem>
                 <Left>
-                  <Button transparent onPress={() => this.props.likeMeme(state.params.meme._id, this.props.user._id)}>
+                  <Button transparent onPress={() => this.likeMemeScreen(state.params.meme._id, this.props.user._id)}>
                     <Icon active name="thumbs-up" />
                     <Text>{state.params.meme.funny.length} Likes</Text>
                   </Button>
                 </Left>
               </CardItem>
               <FlatList
-              data={state.params.meme.comment}
+              data={this.state.memeComment}
               keyExtractor= {(item,index) => index}
               renderItem= {({item}) => {
                 return(
@@ -68,7 +96,7 @@ class MemeScreen extends Component {
                 </Item>         
               </Form> 
               <Button block dark 
-              onPress={() => this.props.addComment(state.params.meme._id, this.props.user.name, this.state.comment)}
+              onPress={() => this.addCommentMeme(state.params.meme._id, this.props.user.name, this.state.comment)}
               >
                 <Text> Add Comment </Text>
               </Button>                 

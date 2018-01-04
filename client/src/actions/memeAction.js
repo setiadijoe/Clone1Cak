@@ -39,7 +39,6 @@ export const likeMeme= (memeId,userId) => {
 }
 
 export const addComment= (memeId,userName,comment) => {
-	alert(comment)
 	return {
 		type: "ADD_COMMENT",
 		payload: {

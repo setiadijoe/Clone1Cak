@@ -22,23 +22,34 @@ import { StyleSheet,
 		}
 
 		checkLogin() {
-			this.props.fetchApiUsers(this.state.username,this.state.password)	
-			this.setState({
-				isLogin: this.props.isLogin
-			})				
+			const { navigate,state } = this.props.navigation
+			this.props.fetchApiUsers(this.state.username,this.state.password)
+			if(this.state.isLogin){
+				navigate('Home')
+			}
 		}
 
-		componentDidMount() {
-			if(this.props.isLogin){
+		componentDidUpdate(prevProps,prevState) {
+			const { navigate,state } = this.props.navigation
+			if(prevState.isLogin != this.props.isLogin){
+				this.setState({
+					isLogin: this.props.isLogin
+				}, () => {
+					if(this.state.isLogin){
+						navigate('Home')
+					}
+				})
+			}
+		}
+
+		componentWillMount() {
+			if(this.state.isLogin){
 				navigate('Home')
 			} 
 		}
 
 		render() {
 			const { navigate,state } = this.props.navigation
-			if(this.props.isLogin){
-				navigate('Home')
-			}
 				return (
 					<Container>
 						<Content>
