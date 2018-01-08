@@ -89,6 +89,25 @@ const unfunnyMeme = (req, res) => {
     .catch(err => res.status(500).send(err))
 }
 
+const addComment = (req, res) => {
+  Meme.findByIdAndUpdate(req.params.id, {
+    $push: {
+      comment: {
+        memeId: req.body.memeId,
+        username: req.headers.id,
+        comment: req.body.comment
+      }
+    }
+  }, {new: true})
+  .then(commented => {
+    res.status(200).send({
+      message: 'memecomment',
+      commented
+    })
+  })
+  .catch(err => res.status(500).send(err))
+}
+
 module.exports = {
   getAllMemes,
   getByUser,
@@ -96,5 +115,6 @@ module.exports = {
   updateMeme,
   removeMeme,
   funnyMeme,
-  unfunnyMeme
+  unfunnyMeme,
+  addComment,
 };
