@@ -20,7 +20,6 @@ const initialState = {
 	]
 }
 function memeReducer(state=initialState, action){
-	console.log(state)
 	switch(action.type) {
 		case 'GET_MEMES':
 			return state
@@ -29,7 +28,8 @@ function memeReducer(state=initialState, action){
 				if(meme._id === action.payload.memeId){
 					if(meme.funny.indexOf(action.payload.userId) === -1){
 						alert('liked')
-						meme.funny.push(action.payload.userId)
+						let memeFunny = meme.funny.concat(action.payload.userId)
+						meme.funny = memeFunny
 					}else{
 						alert('unliked')
 						newMeme = meme.funny.filter( like => like != action.payload.userId)
@@ -37,20 +37,12 @@ function memeReducer(state=initialState, action){
 					}
 				}
 			})
-			return state	
+			return state
+			// return {...state, memes: action.payload}	
 		case 'ADD_COMMENT':
-			state.memes.forEach(meme => {
-				if(meme._id === action.payload.memeId){
-					meme.comment.push({
-						msg: action.payload.comment,
-						name: action.payload.userName
-					})
-				}
-			})
-			return state	
+			return {...state, memes: action.payload}	
 		case 'UPLOAD_MEME':
-			state.memes.push(action.payload)
-			return state 		
+			return {...state, memes: action.payload} 		
 		default:
 			return state
 	}

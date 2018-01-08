@@ -6,12 +6,12 @@ export default class CommentComponent extends Component {
           <Card>
             <CardItem header>
               <Thumbnail source={{uri: 'https://cdn3.iconfinder.com/data/icons/internet-and-web-4/78/internt_web_technology-13-512.png'}} />
-              <Text> {this.props.comment.name} </Text>
+              <Text> {this.props.comment.userName} </Text>
             </CardItem>
             <CardItem>
               <Body>
                 <Text>
-                  {this.props.comment.msg}
+                  {this.props.comment.comment}
                 </Text>
               </Body>
             </CardItem>

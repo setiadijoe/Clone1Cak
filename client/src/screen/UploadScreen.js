@@ -51,7 +51,11 @@ class UploadScreen extends Component {
    });
   } 
 
-
+  uploadImage(title,avatarSource,uploaderName) {
+    const { navigate,state } = this.props.navigation
+    this.props.uploadMeme(title,avatarSource,uploaderName)
+    navigate('Home')
+  }
 
   render() {
     const { navigate,state } = this.props.navigation
@@ -70,7 +74,7 @@ class UploadScreen extends Component {
                   }
                 </View>
             </TouchableOpacity>            
-            <Button full success style={styles.upladButton} onPress={() => this.props.uploadMeme(this.state.title,this.state.avatarSource.uri,this.props.user.name)}><Text> Upload </Text></Button>
+            <Button full success style={styles.upladButton} onPress={() => this.uploadImage(this.state.title,this.state.avatarSource.uri,this.props.user[0].name)}><Text> Upload </Text></Button>
           </Form>
         </Content>
       </Container>

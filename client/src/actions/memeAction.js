@@ -14,21 +14,24 @@ export const getMeme= (memeId) => {
 }
 
 export const uploadMeme= (titleMeme,imageUrlMeme,nameUser) => {
-	alert(JSON.stringify(imageUrlMeme))
-	return {
-		type: "UPLOAD_MEME",
-		payload: {
+	return (dispatch,getState) => {
+		let allMemes = getState().memeReducer.memes
+		allMemes.push({
 			title: titleMeme,
 			avatarUrl: 'https://cdn3.iconfinder.com/data/icons/internet-and-web-4/78/internt_web_technology-13-512.png',
 			imageUrl: imageUrlMeme,
 			author: nameUser,
 			funny: [],
 			comment: []			
-		}
+		})
+		dispatch({
+			type: "UPLOAD_MEME",
+			payload: allMemes
+		})
 	}
 }
 
-export const likeMeme= (memeId,userId) => {
+export const likeMeme= (memeId,userId) => {	
 	return {
 		type: "LIKE_MEME",
 		payload: {
@@ -39,13 +42,22 @@ export const likeMeme= (memeId,userId) => {
 }
 
 export const addComment= (memeId,userName,comment) => {
-	return {
-		type: "ADD_COMMENT",
-		payload: {
-			memeId: memeId,
-			userName: userName,
-			comment: comment,			
-		}
+	return (dispatch,getState) => {
+		let allMemes = getState().memeReducer.memes
+		let newMemes = allMemes.map(meme => {
+			if(meme._id == memeId){
+				meme.comment.push({
+					memeId:memeId,
+					userName: userName,
+					comment: comment
+				})
+			}
+			return meme
+		})
+		dispatch({
+			type: "ADD_COMMENT",
+			payload: newMemes			
+		})
 	}
 }
 

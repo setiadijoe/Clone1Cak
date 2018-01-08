@@ -96,7 +96,7 @@ class MemeScreen extends Component {
                 </Item>         
               </Form> 
               <Button block dark 
-              onPress={() => this.addCommentMeme(state.params.meme._id, this.props.user.name, this.state.comment)}
+              onPress={() => this.addCommentMeme(state.params.meme._id, this.props.user[0].name, this.state.comment)}
               >
                 <Text> Add Comment </Text>
               </Button>                 

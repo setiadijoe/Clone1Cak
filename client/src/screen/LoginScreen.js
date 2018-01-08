@@ -23,7 +23,7 @@ import { StyleSheet,
 
 		checkLogin() {
 			const { navigate,state } = this.props.navigation
-			this.props.fetchApiUsers(this.state.username,this.state.password)
+			this.props.fetchApiUsers(this.state.username,this.state.password,this.props.users)
 			if(this.state.isLogin){
 				navigate('Home')
 			}
@@ -94,13 +94,14 @@ import { StyleSheet,
 
 	function mapStateToProps (state) {
 		return {
-			isLogin: state.userReducer.isLogin
+			isLogin: state.userReducer.isLogin,
+			users: state.userReducer.user
 		}
 	}
 
 	function mapDispatchToProps (dispatch) {
 		return {
-			fetchApiUsers: (name,pass) => dispatch(fetchApiUsers(name,pass))
+			fetchApiUsers: (name,pass,allUser) => dispatch(fetchApiUsers(name,pass,allUser))
 		}
 	}
 
