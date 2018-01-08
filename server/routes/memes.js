@@ -10,6 +10,7 @@ router.post('/', Auth.hasLogin, uploadMeme.multer.single('image_url'), uploadMem
 router.put('/fun/:id', Auth.hasLogin, Meme.funnyMeme)
 router.put('/unfun/:id', Auth.hasLogin, Meme.unfunnyMeme)
 router.put('/:id', Auth.hasLogin, Meme.updateMeme)
+router.put('/:id', Auth.hasLogin, Meme.addComment)
 router.delete('/:id', Auth.hasLogin, Meme.removeMeme)
 
 module.exports = router;

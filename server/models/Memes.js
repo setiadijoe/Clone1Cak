@@ -18,6 +18,12 @@ const memeSchema = new Schema({
     type: Schema.ObjectId,
     ref: 'users'
   }],
+  comments: [{
+    memeId: {type: Schema.ObjectId,
+    ref: 'memes'},
+    comment: String,
+    username: String
+  }],
   createdAt: {
     type: Date, 
     default: Date.now 
